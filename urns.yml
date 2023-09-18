@@ -1,0 +1,25 @@
+# maps string keys to best practice fully qualified URNs
+
+# some references:
+#   http://webfinger.net/rel/
+#   http://www.packetizer.com/webfinger/link_relations.html
+
+# names of people
+name: "http://schema.org/name"
+full_name: "http://schema.org/name"
+
+# pictures of people
+avatar: http://webfinger.net/rel/avatar
+picture: http://webfinger.net/rel/avatar
+photo: http://webfinger.net/rel/avatar
+
+# homepages of people
+profile_page: http://webfinger.net/rel/profile-page
+profile: http://webfinger.net/rel/profile-page
+website: http://webfinger.net/rel/profile-page
+url: http://webfinger.net/rel/profile-page
+homepage: http://webfinger.net/rel/profile-page
+
+# OpenID Connect
+openid: http://openid.net/specs/connect/1.0/issuer
+open_id: http://openid.net/specs/connect/1.0/issuer

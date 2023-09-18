@@ -28,12 +28,14 @@ COPY main.go ./
 
 # Build it
 RUN --mount=type=cache,target=/tmp/.go-build-cache \
-  make backend VERSION=$VERSION
+  make build VERSION=$VERSION
 
 # Now create a new image with just the binary
 FROM gcr.io/distroless/static-debian11:nonroot
 
 WORKDIR /app
+
+COPY urns.yml /app/urns.yml
 
 # Set our runtime environment
 ENV ENV_DOCKER=true

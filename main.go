@@ -43,10 +43,6 @@ func Run() error {
 
 	cfg := &Config{}
 
-	// Create a logger and add it to the context
-	l := NewLogger(cfg)
-	ctx = WithLogger(ctx, l)
-
 	// Create a new root command
 	subcommands := []*ff.Command{
 		NewServerCmd(cfg),
@@ -74,7 +70,9 @@ func NewServerCmd(cfg *Config) *ff.Command {
 		Usage:     "serve [flags]",
 		ShortHelp: "Start the webfinger server",
 		Exec: func(ctx context.Context, args []string) error {
-			l := LoggerFromContext(ctx)
+			// Create a logger and add it to the context
+			l := NewLogger(cfg)
+			ctx = WithLogger(ctx, l)
 
 			// Parse the webfinger files
 			fingermap, err := ParseFingerFile(ctx, cfg)
@@ -310,11 +308,9 @@ func ParseFingerFile(ctx context.Context, cfg *Config) (WebFingerMap, error) {
 		for field, value := range v {
 			fieldUrn := field
 
-			// If the key is not already an URN, try to find it in the URNs file
-			if _, err := url.Parse(field); err != nil {
-				if _, ok := urnMap[field]; ok {
-					fieldUrn = urnMap[field]
-				}
+			// If the key is present in the URNs file, use the value
+			if _, ok := urnMap[field]; ok {
+				fieldUrn = urnMap[field]
 			}
 
 			// If the value is a valid URI, add it to the links

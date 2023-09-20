@@ -42,7 +42,6 @@ func NewFingerReader() *FingerReader {
 
 func (f *FingerReader) ReadFiles(cfg *config.Config) error {
 	// Read URNs file
-
 	file, err := os.ReadFile(cfg.URNPath)
 	if err != nil {
 		// If the file does not exist and the path is the default, set the URNs to an empty map

@@ -86,14 +86,13 @@ https://example.com/user/charlie:
       "href": "https://sso.example.com/"
     },
     {
-      "rel": "name",
-      "href": "Alice Doe"
-    },
-    {
       "rel": "http://webfinger.net/rel/profile-page",
       "href": "https://example.com/user/alice"
     }
-  ]
+  ],
+  "properties": {
+    "name": "Alice Doe"
+  }
 }
 ```
 </details>
@@ -107,14 +106,13 @@ https://example.com/user/charlie:
   "subject": "acct:bob@example.com",
   "links": [
     {
-      "rel": "name",
-      "href": "Bob Foo"
-    },
-    {
-      "rel": "openid",
+      "rel": "http://openid.net/specs/connect/1.0/issuer",
       "href": "https://sso.example.com/"
     }
-  ]
+  ],
+  "properties": {
+    "http://schema.org/name": "Bob Foo"
+  }
 }
 ```
 </details>
@@ -128,21 +126,44 @@ https://example.com/user/charlie:
   "subject": "https://example.com/user/charlie",
   "links": [
     {
-      "rel": "name",
-      "href": "Charlie Baz"
-    },
-    {
-      "rel": "profile",
+      "rel": "http://webfinger.net/rel/profile-page",
       "href": "https://example.com/user/charlie"
     }
-  ]
+  ],
+  "properties": {
+    "http://schema.org/name": "Charlie Baz"
+  }
 }
 ```
 </details>
 
+## Commands
+
+Finger exposes two commands: `serve` and `healthcheck`. `serve` is the default command and starts the server. `healthcheck` is used by the Docker healthcheck to check if the server is up.
+
 ## Configs
 Here are the config options available. You can change them via command line flags or environment variables:
 
-| CLI flag | Env variable | Default | Description |
-| -------- | ------------ | ------- | ----------- |
-| fdsfds   | gsfgfs       | fgfsdgf | gdfsgdf     |
+| CLI flag            | Env variable     | Default                                | Description                            |
+| ------------------- | ---------------- | -------------------------------------- | -------------------------------------- |
+| `-p, --port`        | `WF_PORT`        | `8080`                                 | Port where the server listens to       |
+| `-h, --host`        | `WF_HOST`        | `localhost` (`0.0.0.0` when in Docker) | Host where the server listens to       |
+| `-f, --finger-file` | `WF_FINGER_FILE` | `fingers.yml`                          | Path to the webfingers definition file |
+| `-u, --urn-file`    | `WF_URN_FILE`    | `urns.yml`                             | Path to the URNs alias file            |
+| `-d, --debug`       | `WF_DEBUG`       | `false`                                | Enable debug logging                   |
+
+## Development
+
+You need to have [Go](https://golang.org/) installed to build the project.
+
+Clone the repo and run `make build` to build the binary. You can then run `./finger serve` to start the server.
+
+A few other commands are:
+ - `make run` to run the server
+ - `make test` to run the tests
+ - `make lint` to run the linter
+ - `make clean` to clean the build files
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

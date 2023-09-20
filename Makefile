@@ -9,7 +9,7 @@ build:
 test:
 	go test -v ./...
  
-serve:
+run:
 	go run main.go serve
 
 clean:

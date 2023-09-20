@@ -6,9 +6,9 @@ import (
 	"os"
 
 	"git.maronato.dev/maronato/finger/internal/config"
+	"git.maronato.dev/maronato/finger/internal/fingerreader"
 	"git.maronato.dev/maronato/finger/internal/log"
 	"git.maronato.dev/maronato/finger/internal/server"
-	"git.maronato.dev/maronato/finger/internal/webfinger"
 	"github.com/peterbourgon/ff/v4"
 )
 
@@ -25,21 +25,21 @@ func newServerCmd(cfg *config.Config) *ff.Command {
 			ctx = log.WithLogger(ctx, l)
 
 			// Read the webfinger files
-			r := webfinger.NewFingerReader()
+			r := fingerreader.NewFingerReader()
 			err := r.ReadFiles(cfg)
 			if err != nil {
 				return fmt.Errorf("error reading finger files: %w", err)
 			}
 
-			webfingers, err := r.ReadFingerFile(ctx)
+			fingers, err := r.ReadFingerFile(ctx)
 			if err != nil {
 				return fmt.Errorf("error parsing finger files: %w", err)
 			}
 
-			l.Info(fmt.Sprintf("Loaded %d webfingers", len(webfingers)))
+			l.Info(fmt.Sprintf("Loaded %d webfingers", len(fingers)))
 
 			// Start the server
-			if err := server.StartServer(ctx, cfg, webfingers); err != nil {
+			if err := server.StartServer(ctx, cfg, fingers); err != nil {
 				return fmt.Errorf("error running server: %w", err)
 			}
 

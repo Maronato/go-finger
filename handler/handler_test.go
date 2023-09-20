@@ -1,4 +1,4 @@
-package server_test
+package handler_test
 
 import (
 	"context"
@@ -10,19 +10,19 @@ import (
 	"strings"
 	"testing"
 
+	"git.maronato.dev/maronato/finger/handler"
 	"git.maronato.dev/maronato/finger/internal/config"
 	"git.maronato.dev/maronato/finger/internal/log"
-	"git.maronato.dev/maronato/finger/internal/server"
-	"git.maronato.dev/maronato/finger/internal/webfinger"
+	"git.maronato.dev/maronato/finger/webfingers"
 )
 
 func TestWebfingerHandler(t *testing.T) {
 	t.Parallel()
 
-	webfingers := webfinger.WebFingers{
+	fingers := webfingers.WebFingers{
 		"acct:user@example.com": {
 			Subject: "acct:user@example.com",
-			Links: []webfinger.Link{
+			Links: []webfingers.Link{
 				{
 					Rel:  "http://webfinger.net/rel/profile-page",
 					Href: "https://example.com/user",
@@ -104,7 +104,7 @@ func TestWebfingerHandler(t *testing.T) {
 			w := httptest.NewRecorder()
 
 			// Create a new handler
-			h := server.WebfingerHandler(cfg, webfingers)
+			h := handler.WebfingerHandler(fingers)
 
 			// Serve the request
 			h.ServeHTTP(w, r)
@@ -121,8 +121,8 @@ func TestWebfingerHandler(t *testing.T) {
 					t.Errorf("expected content type %s, got %s", "application/jrd+json", w.Header().Get("Content-Type"))
 				}
 
-				fingerWant := webfingers[tc.resource]
-				fingerGot := &webfinger.WebFinger{}
+				fingerWant := fingers[tc.resource]
+				fingerGot := &webfingers.WebFinger{}
 
 				// Decode the response body
 				if err := json.NewDecoder(w.Body).Decode(fingerGot); err != nil {
@@ -145,5 +145,32 @@ func TestWebfingerHandler(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+func BenchmarkWebfingerHandler(b *testing.B) {
+	fingers, err := webfingers.NewWebFingers(
+		webfingers.Resources{
+			"user@example.com": {
+				"prop1": "value1",
+			},
+		},
+		nil,
+	)
+	if err != nil {
+		b.Fatal(err)
+	}
+
+	h := handler.WebfingerHandler(fingers)
+	r := httptest.NewRequest(http.MethodGet, "/.well-known/webfinger?resource=acct:user@example.com", http.NoBody)
+
+	for i := 0; i < b.N; i++ {
+		w := httptest.NewRecorder()
+
+		h.ServeHTTP(w, r)
+
+		if w.Code != http.StatusOK {
+			b.Errorf("expected status code %d, got %d", http.StatusOK, w.Code)
+		}
 	}
 }

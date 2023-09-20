@@ -1,6 +1,6 @@
 # Finger
 
-Webfinger server written in Go.
+Webfinger handler / standalone server written in Go.
 
 ## Features
 - 🍰  Easy YAML configuration
@@ -8,7 +8,58 @@ Webfinger server written in Go.
 - ⚡️   Sub millisecond responses at 10,000 request per second
 - 🐳  10MB Docker image
 
-## Install
+## In your existing server
+
+To use Finger in your existing server, download the package as a dependency:
+
+```bash
+go get git.maronato.dev/maronato/finger@latest
+```
+
+Then, use it as a regular `http.Handler`:
+
+```go
+package main
+
+import (
+	"log"
+	"net/http"
+
+	"git.maronato.dev/maronato/finger/handler"
+	"git.maronato.dev/maronato/finger/webfingers"
+)
+
+func main() {
+  // Create the webfingers map that will be served by the handler
+  fingers, err := webfingers.NewWebFingers(
+    // Pass a map of your resources (Subject key followed by it's properties and links)
+    // the syntax is the same as the fingers.yml file (see below)
+    webfingers.Resources{
+      "user@example.com": {
+        "name": "Example User",
+      },
+    },
+    // Optionally, pass a map of URN aliases (see urns.yml for more)
+    // If nil is provided, no aliases will be used
+    webfingers.URNAliases{
+      "name": "http://schema.org/name",
+    },
+  )
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  mux := http.NewServeMux()
+  // Then use the handler as a regular http.Handler
+  mux.Handle("/.well-known/webfinger", handler.WebfingerHandler(fingers))
+
+  log.Fatal(http.ListenAndServe("localhost:8080", mux))
+}
+```
+
+## As a standalone server
+
+If you don't have a server, Finger can also serve itself. You can install it via `go install` or use the Docker image.
 
 Via `go install`:
 

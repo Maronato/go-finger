@@ -14,7 +14,7 @@ import (
 	"git.maronato.dev/maronato/finger/internal/config"
 	"git.maronato.dev/maronato/finger/internal/log"
 	"git.maronato.dev/maronato/finger/internal/server"
-	"git.maronato.dev/maronato/finger/internal/webfinger"
+	"git.maronato.dev/maronato/finger/webfingers"
 )
 
 func getPortGenerator() func() int {
@@ -96,8 +96,8 @@ func TestStartServer(t *testing.T) {
 		cfg.Port = fmt.Sprint(portGenerator())
 
 		resource := "acct:user@example.com"
-		webfingers := webfinger.WebFingers{
-			resource: &webfinger.WebFinger{
+		fingers := webfingers.WebFingers{
+			resource: &webfingers.WebFinger{
 				Subject: resource,
 				Properties: map[string]string{
 					"http://webfinger.net/rel/name": "John Doe",
@@ -107,7 +107,7 @@ func TestStartServer(t *testing.T) {
 
 		go func() {
 			// Start the server
-			err := server.StartServer(ctx, cfg, webfingers)
+			err := server.StartServer(ctx, cfg, fingers)
 			if err != nil {
 				t.Errorf("expected no error, got %v", err)
 			}
@@ -140,7 +140,7 @@ func TestStartServer(t *testing.T) {
 		}
 
 		// Check the response body
-		fingerGot := &webfinger.WebFinger{}
+		fingerGot := &webfingers.WebFinger{}
 
 		// Decode the response body
 		if err := json.NewDecoder(resp.Body).Decode(fingerGot); err != nil {
@@ -148,7 +148,7 @@ func TestStartServer(t *testing.T) {
 		}
 
 		// Check the response body
-		fingerWant := webfingers[resource]
+		fingerWant := fingers[resource]
 
 		if !reflect.DeepEqual(fingerGot, fingerWant) {
 			t.Errorf("expected %v, got %v", fingerWant, fingerGot)

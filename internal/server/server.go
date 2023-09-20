@@ -8,10 +8,11 @@ import (
 	"net/http"
 	"time"
 
+	"git.maronato.dev/maronato/finger/handler"
 	"git.maronato.dev/maronato/finger/internal/config"
 	"git.maronato.dev/maronato/finger/internal/log"
 	"git.maronato.dev/maronato/finger/internal/middleware"
-	"git.maronato.dev/maronato/finger/internal/webfinger"
+	"git.maronato.dev/maronato/finger/webfingers"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -33,20 +34,17 @@ const (
 	RequestTimeout = 7 * 24 * time.Hour
 )
 
-func StartServer(ctx context.Context, cfg *config.Config, webfingers webfinger.WebFingers) error {
+func StartServer(ctx context.Context, cfg *config.Config, fingers webfingers.WebFingers) error {
 	l := log.FromContext(ctx)
 
 	// Create the server mux
 	mux := http.NewServeMux()
-	mux.Handle("/.well-known/webfinger", WebfingerHandler(cfg, webfingers))
+	mux.Handle("/.well-known/webfinger", handler.WebfingerHandler(fingers))
 	mux.Handle("/healthz", HealthCheckHandler(cfg))
 
 	// Create a new server
 	srv := &http.Server{
 		Addr: cfg.GetAddr(),
-		BaseContext: func(_ net.Listener) context.Context {
-			return ctx
-		},
 		Handler: middleware.RequestLogger(
 			middleware.Recoverer(
 				http.TimeoutHandler(mux, RequestTimeout, "request timed out"),

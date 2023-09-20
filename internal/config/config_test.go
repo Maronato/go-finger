@@ -59,14 +59,14 @@ func TestConfig_Validate(t *testing.T) {
 			name: "empty host",
 			cfg: &config.Config{
 				Host: "",
-				Port: "1234",
+				Port: config.DefaultPort,
 			},
 			wantErr: true,
 		},
 		{
 			name: "empty port",
 			cfg: &config.Config{
-				Host: "example.com",
+				Host: config.DefaultHost,
 				Port: "",
 			},
 			wantErr: true,
@@ -74,7 +74,7 @@ func TestConfig_Validate(t *testing.T) {
 		{
 			name: "invalid addr",
 			cfg: &config.Config{
-				Host: "example.com",
+				Host: config.DefaultHost,
 				Port: "invalid",
 			},
 			wantErr: true,
@@ -82,8 +82,8 @@ func TestConfig_Validate(t *testing.T) {
 		{
 			name: "empty urn path",
 			cfg: &config.Config{
-				Host:    "example.com",
-				Port:    "1234",
+				Host:    config.DefaultHost,
+				Port:    config.DefaultPort,
 				URNPath: "",
 			},
 			wantErr: true,
@@ -91,9 +91,9 @@ func TestConfig_Validate(t *testing.T) {
 		{
 			name: "empty finger path",
 			cfg: &config.Config{
-				Host:       "example.com",
-				Port:       "1234",
-				URNPath:    "urns.yml",
+				Host:       config.DefaultHost,
+				Port:       config.DefaultPort,
+				URNPath:    config.DefaultURNPath,
 				FingerPath: "",
 			},
 			wantErr: true,
@@ -101,10 +101,10 @@ func TestConfig_Validate(t *testing.T) {
 		{
 			name: "valid",
 			cfg: &config.Config{
-				Host:       "example.com",
-				Port:       "1234",
-				URNPath:    "urns.yml",
-				FingerPath: "finger.yml",
+				Host:       config.DefaultHost,
+				Port:       config.DefaultPort,
+				URNPath:    config.DefaultURNPath,
+				FingerPath: config.DefaultFingerPath,
 			},
 			wantErr: false,
 		},

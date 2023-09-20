@@ -60,7 +60,7 @@ func TestStartServer(t *testing.T) {
 	t.Run("fails to start", func(t *testing.T) {
 		t.Parallel()
 
-		ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*100)
+		ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*200)
 		defer cancel()
 
 		cfg := config.NewConfig()

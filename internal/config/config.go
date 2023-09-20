@@ -15,7 +15,7 @@ const (
 	// DefaultURNPath is the default file path to the URN alias file.
 	DefaultURNPath = "urns.yml"
 	// DefaultFingerPath is the default file path to the webfinger definition file.
-	DefaultFingerPath = "finger.yml"
+	DefaultFingerPath = "fingers.yml"
 )
 
 // ErrInvalidConfig is returned when the config is invalid.

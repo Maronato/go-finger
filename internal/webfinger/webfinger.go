@@ -42,9 +42,15 @@ func NewFingerReader() *FingerReader {
 
 func (f *FingerReader) ReadFiles(cfg *config.Config) error {
 	// Read URNs file
+
 	file, err := os.ReadFile(cfg.URNPath)
 	if err != nil {
-		return fmt.Errorf("error opening URNs file: %w", err)
+		// If the file does not exist and the path is the default, set the URNs to an empty map
+		if os.IsNotExist(err) && cfg.URNPath == config.DefaultURNPath {
+			f.URNSFile = []byte("")
+		} else {
+			return fmt.Errorf("error opening URNs file: %w", err)
+		}
 	}
 
 	f.URNSFile = file
@@ -52,7 +58,12 @@ func (f *FingerReader) ReadFiles(cfg *config.Config) error {
 	// Read fingers file
 	file, err = os.ReadFile(cfg.FingerPath)
 	if err != nil {
-		return fmt.Errorf("error opening fingers file: %w", err)
+		// If the file does not exist and the path is the default, set the fingers to an empty map
+		if os.IsNotExist(err) && cfg.FingerPath == config.DefaultFingerPath {
+			f.FingersFile = []byte("")
+		} else {
+			return fmt.Errorf("error opening fingers file: %w", err)
+		}
 	}
 
 	f.FingersFile = file

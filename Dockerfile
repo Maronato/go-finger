@@ -25,6 +25,8 @@ COPY Makefile ./
 
 # Copy source files
 COPY main.go ./
+COPY cmd cmd
+COPY internal internal
 
 # Build it
 RUN --mount=type=cache,target=/tmp/.go-build-cache \

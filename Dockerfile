@@ -27,6 +27,8 @@ COPY Makefile ./
 COPY main.go ./
 COPY cmd cmd
 COPY internal internal
+COPY webfingers webfingers
+COPY handler handler
 
 # Build it
 RUN --mount=type=cache,target=/tmp/.go-build-cache \

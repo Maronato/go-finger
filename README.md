@@ -70,8 +70,10 @@ go install git.maronato.dev/maronato/finger@latest
 Via Docker:
 
 ```bash
-docker run --name finger /
-    -p 8080:8080 /
+docker run \
+    --name finger \
+    -p 8080:8080 \
+    -v ${PWD}/fingers.yml:/app/fingers.yml \
     git.maronato.dev/maronato/finger
 ```
 
@@ -202,6 +204,18 @@ Here are the config options available. You can change them via command line flag
 | `-f, --finger-file` | `WF_FINGER_FILE` | `fingers.yml`                          | Path to the webfingers definition file |
 | `-u, --urn-file`    | `WF_URN_FILE`    | `urns.yml`                             | Path to the URNs alias file            |
 | `-d, --debug`       | `WF_DEBUG`       | `false`                                | Enable debug logging                   |
+
+### Docker config
+If you're using the Docker image, you can mount your `fingers.yml` file to `/app/fingers.yml` and the `urns.yml` to `/app/urns.yml`.
+
+To run the docker image with flags or a different command, specify the command followed by the flags:
+```bash
+# Start the server on port 3030 in debug mode with a different fingers file
+docker run git.maronato.dev/maronato/finger serve --port 3030 --debug --finger-file /app/my-fingers.yml
+
+# or run a healthcheck on a different finger container
+docker run git.maronato.dev/maronato/finger healthcheck --host otherhost --port 3030
+```
 
 ## Development
 

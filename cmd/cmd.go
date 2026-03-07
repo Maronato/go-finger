@@ -8,7 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"git.maronato.dev/maronato/finger/internal/config"
+	"github.com/Maronato/go-finger/internal/config"
 	"github.com/peterbourgon/ff/v4"
 	"github.com/peterbourgon/ff/v4/ffhelp"
 )

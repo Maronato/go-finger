@@ -7,9 +7,9 @@ import (
 	"net/url"
 	"os"
 
-	"git.maronato.dev/maronato/finger/internal/config"
-	"git.maronato.dev/maronato/finger/internal/log"
-	"git.maronato.dev/maronato/finger/webfingers"
+	"github.com/Maronato/go-finger/internal/config"
+	"github.com/Maronato/go-finger/internal/log"
+	"github.com/Maronato/go-finger/webfingers"
 	"gopkg.in/yaml.v3"
 )
 

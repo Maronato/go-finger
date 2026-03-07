@@ -6,7 +6,7 @@ import (
 	"sort"
 	"testing"
 
-	"git.maronato.dev/maronato/finger/webfingers"
+	"github.com/Maronato/go-finger/webfingers"
 )
 
 func TestNewWebFingers(t *testing.T) {

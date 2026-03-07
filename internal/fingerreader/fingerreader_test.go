@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"git.maronato.dev/maronato/finger/internal/config"
-	"git.maronato.dev/maronato/finger/internal/fingerreader"
-	"git.maronato.dev/maronato/finger/internal/log"
-	"git.maronato.dev/maronato/finger/webfingers"
+	"github.com/Maronato/go-finger/internal/config"
+	"github.com/Maronato/go-finger/internal/fingerreader"
+	"github.com/Maronato/go-finger/internal/log"
+	"github.com/Maronato/go-finger/webfingers"
 )
 
 func newTempFile(t *testing.T, content string) (name string, remove func()) {

@@ -1,4 +1,4 @@
-module git.maronato.dev/maronato/finger
+module github.com/Maronato/go-finger
 
 go 1.21.0
 

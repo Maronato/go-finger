@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"git.maronato.dev/maronato/finger/cmd"
+	"github.com/Maronato/go-finger/cmd"
 )
 
 // Version of the app.

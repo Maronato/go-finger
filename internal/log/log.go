@@ -5,7 +5,7 @@ import (
 	"io"
 	"log/slog"
 
-	"git.maronato.dev/maronato/finger/internal/config"
+	"github.com/Maronato/go-finger/internal/config"
 )
 
 type loggerCtxKey struct{}

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"git.maronato.dev/maronato/finger/webfingers"
+	"github.com/Maronato/go-finger/webfingers"
 )
 
 func WebfingerHandler(fingers webfingers.WebFingers) http.Handler {

@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"time"
 
-	"git.maronato.dev/maronato/finger/internal/config"
+	"github.com/Maronato/go-finger/internal/config"
 	"github.com/peterbourgon/ff/v4"
 )
 

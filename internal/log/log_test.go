@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"git.maronato.dev/maronato/finger/internal/config"
-	"git.maronato.dev/maronato/finger/internal/log"
+	"github.com/Maronato/go-finger/internal/config"
+	"github.com/Maronato/go-finger/internal/log"
 )
 
 func assertPanic(t *testing.T, f func()) {

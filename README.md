@@ -13,7 +13,7 @@ Webfinger handler / standalone server written in Go.
 To use Finger in your existing server, download the package as a dependency:
 
 ```bash
-go get git.maronato.dev/maronato/finger@latest
+go get github.com/Maronato/go-finger@latest
 ```
 
 Then, use it as a regular `http.Handler`:
@@ -25,8 +25,8 @@ import (
 	"log"
 	"net/http"
 
-	"git.maronato.dev/maronato/finger/handler"
-	"git.maronato.dev/maronato/finger/webfingers"
+	"github.com/Maronato/go-finger/handler"
+	"github.com/Maronato/go-finger/webfingers"
 )
 
 func main() {
@@ -64,7 +64,7 @@ If you don't have a server, Finger can also serve itself. You can install it via
 Via `go install`:
 
 ```bash
-go install git.maronato.dev/maronato/finger@latest
+go install github.com/Maronato/go-finger@latest
 ```
 
 Via Docker:
@@ -74,16 +74,16 @@ docker run \
     --name finger \
     -p 8080:8080 \
     -v ${PWD}/fingers.yml:/app/fingers.yml \
-    git.maronato.dev/maronato/finger
+    ghcr.io/maronato/go-finger
 ```
 
 ## Usage
 
 If you installed it using `go install`, run
 ```bash
-finger serve
+go-finger serve
 ```
-To start the server on port `8080`. Your resources will be queryable via `locahost:8080/.well-known/webfinger?resource=<your-resource>`
+To start the server on port `8080`. Your resources will be queryable via `localhost:8080/.well-known/webfinger?resource=<your-resource>`
 
 If you're using Docker, the use the same command in the install section.
 
@@ -211,17 +211,17 @@ If you're using the Docker image, you can mount your `fingers.yml` file to `/app
 To run the docker image with flags or a different command, specify the command followed by the flags:
 ```bash
 # Start the server on port 3030 in debug mode with a different fingers file
-docker run git.maronato.dev/maronato/finger serve --port 3030 --debug --finger-file /app/my-fingers.yml
+docker run ghcr.io/maronato/go-finger serve --port 3030 --debug --finger-file /app/my-fingers.yml
 
 # or run a healthcheck on a different finger container
-docker run git.maronato.dev/maronato/finger healthcheck --host otherhost --port 3030
+docker run ghcr.io/maronato/go-finger healthcheck --host otherhost --port 3030
 ```
 
 ## Development
 
 You need to have [Go](https://golang.org/) installed to build the project.
 
-Clone the repo and run `make build` to build the binary. You can then run `./finger serve` to start the server.
+Clone the repo and run `make build` to build the binary. You can then run `./go-finger serve` to start the server.
 
 A few other commands are:
  - `make run` to run the server

@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"git.maronato.dev/maronato/finger/internal/log"
+	"github.com/Maronato/go-finger/internal/log"
 )
 
 func Recoverer(next http.Handler) http.Handler {

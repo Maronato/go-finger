@@ -3,7 +3,7 @@ package server
 import (
 	"net/http"
 
-	"git.maronato.dev/maronato/finger/internal/config"
+	"github.com/Maronato/go-finger/internal/config"
 )
 
 func HealthCheckHandler(_ *config.Config) http.Handler {

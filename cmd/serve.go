@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"os"
 
-	"git.maronato.dev/maronato/finger/internal/config"
-	"git.maronato.dev/maronato/finger/internal/fingerreader"
-	"git.maronato.dev/maronato/finger/internal/log"
-	"git.maronato.dev/maronato/finger/internal/server"
+	"github.com/Maronato/go-finger/internal/config"
+	"github.com/Maronato/go-finger/internal/fingerreader"
+	"github.com/Maronato/go-finger/internal/log"
+	"github.com/Maronato/go-finger/internal/server"
 	"github.com/peterbourgon/ff/v4"
 )
 
-const appName = "finger"
+const appName = "go-finger"
 
 func newServerCmd(cfg *config.Config) *ff.Command {
 	return &ff.Command{

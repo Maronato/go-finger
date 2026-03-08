@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"git.maronato.dev/maronato/finger/internal/middleware"
+	"github.com/Maronato/go-finger/internal/middleware"
 )
 
 func TestWrapResponseWriter(t *testing.T) {

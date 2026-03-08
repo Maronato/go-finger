@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"git.maronato.dev/maronato/finger/internal/log"
+	"github.com/Maronato/go-finger/internal/log"
 )
 
 func RequestLogger(next http.Handler) http.Handler {

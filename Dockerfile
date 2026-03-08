@@ -44,11 +44,11 @@ COPY urns.yml /app/urns.yml
 # Set our runtime environment
 ENV ENV_DOCKER=true
 
-COPY --from=builder /go/src/app/finger /usr/local/bin/finger
+COPY --from=builder /go/src/app/go-finger /usr/local/bin/go-finger
 
-HEALTHCHECK CMD [ "finger", "healthcheck" ]
+HEALTHCHECK CMD [ "go-finger", "healthcheck" ]
 
 EXPOSE 8080
 
-ENTRYPOINT [ "finger" ]
+ENTRYPOINT [ "go-finger" ]
 CMD [ "serve" ]

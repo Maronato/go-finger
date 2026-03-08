@@ -10,10 +10,10 @@ import (
 	"strings"
 	"testing"
 
-	"git.maronato.dev/maronato/finger/handler"
-	"git.maronato.dev/maronato/finger/internal/config"
-	"git.maronato.dev/maronato/finger/internal/log"
-	"git.maronato.dev/maronato/finger/webfingers"
+	"github.com/Maronato/go-finger/handler"
+	"github.com/Maronato/go-finger/internal/config"
+	"github.com/Maronato/go-finger/internal/log"
+	"github.com/Maronato/go-finger/webfingers"
 )
 
 func TestWebfingerHandler(t *testing.T) {

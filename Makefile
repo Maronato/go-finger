@@ -1,4 +1,4 @@
-BINARY_NAME=finger
+BINARY_NAME=go-finger
 VERSION=$(shell git describe --tags --abbrev=0 || echo "undefined")
 
 all: lint build test

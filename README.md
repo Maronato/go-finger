@@ -81,7 +81,7 @@ docker run \
 
 If you installed it using `go install`, run
 ```bash
-finger serve
+go-finger serve
 ```
 To start the server on port `8080`. Your resources will be queryable via `locahost:8080/.well-known/webfinger?resource=<your-resource>`
 

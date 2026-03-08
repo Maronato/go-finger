@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/Maronato/go-finger/internal/config"
 	"github.com/Maronato/go-finger/internal/fingerreader"
@@ -13,7 +12,7 @@ import (
 	"github.com/peterbourgon/ff/v4"
 )
 
-var appName = filepath.Base(os.Args[0])
+const appName = "go-finger"
 
 func newServerCmd(cfg *config.Config) *ff.Command {
 	return &ff.Command{

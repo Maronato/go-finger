@@ -83,7 +83,7 @@ If you installed it using `go install`, run
 ```bash
 go-finger serve
 ```
-To start the server on port `8080`. Your resources will be queryable via `locahost:8080/.well-known/webfinger?resource=<your-resource>`
+To start the server on port `8080`. Your resources will be queryable via `localhost:8080/.well-known/webfinger?resource=<your-resource>`
 
 If you're using Docker, the use the same command in the install section.
 
@@ -221,7 +221,7 @@ docker run ghcr.io/maronato/go-finger healthcheck --host otherhost --port 3030
 
 You need to have [Go](https://golang.org/) installed to build the project.
 
-Clone the repo and run `make build` to build the binary. You can then run `./finger serve` to start the server.
+Clone the repo and run `make build` to build the binary. You can then run `./go-finger serve` to start the server.
 
 A few other commands are:
  - `make run` to run the server
